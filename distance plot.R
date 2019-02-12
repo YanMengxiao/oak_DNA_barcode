@@ -1,14 +1,14 @@
 rm(list=ls())
 
-##ÆÕÍ¨ÖÆÍ¼
+##æ™®é€šåˆ¶å›¾
 setwd("E:/Xiong/data/20170706/final/distance")
 table <- read.csv(file ='identification_rate.csv')
 
-table2 <- as.matrix(table) ##Ô­Ê¼±í¸ñÐè×ª»¯Îª¾ØÕó£¬ÒªÇóheightÎªÏòÁ¿»ò¾ØÕó
+table2 <- as.matrix(table) ##åŽŸå§‹è¡¨æ ¼éœ€è½¬åŒ–ä¸ºçŸ©é˜µï¼Œè¦æ±‚heightä¸ºå‘é‡æˆ–çŸ©é˜µ
 rownames(table2) <- c("tree","distance","BLAST","character")
 colnames(table2) <- c("A","M","P","Y","AM","AP","AY","MP","MY","PY","AMP","AMY","APY","MPY","AMPY")
 
-##ggplotÎïÖÖ¼ø¶¨ÂÊ
+##ggplotç‰©ç§é‰´å®šçŽ‡
 library(ggplot2)
 table <- read.csv(file ='resolution.csv')
 table$Marker=factor(table$Marker, levels=c("A","M","T","Y","AM","AT","AY","MT","MY","TY","AMT","AMY","ATY","MTY","AMTY"))
@@ -20,30 +20,27 @@ discrimination_rate_plot <-ggplot(table) +
   labs(y="Discrimination rate (%)")
 ggsave("discrimination_rate_plot.pdf",plot=discrimination_rate_plot)
   
-  
-
-  
 rm(list=ls())
 ##ggplot barcoding gap
-##Êý¾Ý×¼±¸
-##ÌáÈ¡ÖÖ¼ä¾àÀë£¬È¥³ýNA  
+##æ•°æ®å‡†å¤‡
+##æå–ç§é—´è·ç¦»ï¼ŒåŽ»é™¤NA  
   dis_mat_int <- read.csv(file ='matK_inter_distance2.csv')
   dis_mat_int<-na.omit(dis_mat_int)
   type<- rep("inter",69557)
-  dis_mat_int<-cbind(dis_mat_int,type) ### 2ÁÐºÏ²¢£¬ÐÎ³ÉÐÂµÄÊý¾Ý¿ò
+  dis_mat_int<-cbind(dis_mat_int,type) ### 2åˆ—åˆå¹¶ï¼Œå½¢æˆæ–°çš„æ•°æ®æ¡†
   colnames(dis_mat_int) <-c("distance","type") 
-##ÌáÈ¡ÖÖÄÚ¾àÀë£¬È¥³ýNA  
+##æå–ç§å†…è·ç¦»ï¼ŒåŽ»é™¤NA  
   dis_mat_itr <- read.csv(file ='matK_intra_distance.csv')
   dis_mat_itr<-na.omit(dis_mat_itr)
   type<- rep("intra",1318)
   dis_mat_itr<-cbind(dis_mat_itr,type)
   colnames(dis_mat_itr) <-c("distance","type")
-##ºÏ²¢ÖÖÄÚ¡¢ÖÖ¼äÊý¾Ý¿ò
+##åˆå¹¶ç§å†…ã€ç§é—´æ•°æ®æ¡†
   dis_mat <- rbind(dis_mat_int, dis_mat_itr)
   write.csv(dis_mat,"matK_distance2.csv")
-##Í³¼Æ·¶Î§ÄÚµÄÆµÊý£¬Ð´ÈëÖÕ±í¸ñ
+##ç»Ÿè®¡èŒƒå›´å†…çš„é¢‘æ•°ï¼Œå†™å…¥ç»ˆè¡¨æ ¼
  table_mat <- table(dis_mat)
- write.csv(table_mat,"table_mat.csv") ##¼ÆËã¸ÅÂÊ
+ write.csv(table_mat,"table_mat.csv") ##è®¡ç®—æ¦‚çŽ‡
 table_mat2<-read.csv("table_mat2.csv")
 
 dis_psb_int <- read.csv(file ='psbA_inter_distance2.csv')
@@ -60,7 +57,7 @@ dis_psb_itr<-cbind(dis_psb_itr,type)
 colnames(dis_psb_itr) <-c("distance","type")
 
 table_psb <- table(dis_psb)
-write.csv(table_psb,"table_psb.csv") ##¼ÆËã¸ÅÂÊ
+write.csv(table_psb,"table_psb.csv") ##è®¡ç®—æ¦‚çŽ‡
 table_psb2<-read.csv("table_psb2.csv")
 
 dis_ycf_int <- read.csv(file ='ycf_inter_distance2.csv')
@@ -81,13 +78,13 @@ write.csv(dis_ycf,"ycf_distance2.csv")
 
 
 table_ycf <- table(dis_ycf)
-write.csv(table_ycf,"table_ycf.csv") ##¼ÆËã¸ÅÂÊ
+write.csv(table_ycf,"table_ycf.csv") ##è®¡ç®—æ¦‚çŽ‡
 table_ycf2<-read.csv("table_ycf2.csv")
 rm(list=ls())
 
 
-##ÖÆÍ¼
-##²ÊÉ«Æ´ºÏÍ¼
+##åˆ¶å›¾
+##å½©è‰²æ‹¼åˆå›¾
 library(ggplot2)
 table_atp2<-read.csv("table_atp2.csv")
 p1 <- ggplot(table_atp2, aes(x=distance,frequency)) + 
@@ -126,7 +123,7 @@ library(gridExtra)
 bar.gap.colour<-grid.arrange(p1,p2,p3,p4,nrow=2,ncol=2)
 ggsave("barcode_gap_colour.pdf",bar.gap.colour)
 
-##ºÚ°×Æ´ºÏÍ¼
+##é»‘ç™½æ‹¼åˆå›¾
 table_atp2<-read.csv("table_atp2.csv")
 p1 <- ggplot(table_atp2, aes(x=distance,frequency)) + 
   geom_bar(aes(fill=type),alpha=.6,position="identity",stat="identity") +
@@ -168,8 +165,8 @@ library(gridExtra)
 bargap.black<-grid.arrange(p1,p2,p3,p4,nrow=2,ncol=2)
 ggsave("barcoding_gap_black.pdf",bargap.black)
 
-##×Ô¶¯×éºÏÍ¼
-##ºÚ°×
+##è‡ªåŠ¨ç»„åˆå›¾
+##é»‘ç™½
 table_cob <- read.csv("table_combination.csv")
 ggplot(table_cob, aes(x=distance,y=frequency)) + 
   geom_bar(aes(color=type),alpha=.6,position="identity",stat="identity") +
@@ -177,14 +174,14 @@ ggplot(table_cob, aes(x=distance,y=frequency)) +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"))+
   facet_wrap(~marker,nrow=2)
 
-##ºÚ°×Ñ¡ÓÃ
+##é»‘ç™½é€‰ç”¨
 ggplot(table_cob, aes(x=distance,y=frequency)) + 
   geom_bar(aes(fill=type),alpha=.6,position="identity",stat="identity") +
   scale_fill_manual(values=c("grey","black")) +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"))+
   facet_wrap(~marker,nrow=2)
 
-##²ÊÉ«
+##å½©è‰²
 ggplot(table_cob, aes(x=distance,y=frequency)) + 
   geom_bar(aes(fill=type),alpha=.6,position="identity",stat="identity") +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"))+
@@ -200,15 +197,15 @@ ggplot(table_cob, aes(x=distance,y=frequency)) +
 
 colors()
 
-##²é¿´ÑÕÉ«¼¯
+##æŸ¥çœ‹é¢œè‰²é›†
 library(RColorBrewer)
 display.brewer.all()
 
-##ºÚ°×Ä£Ê½
+##é»‘ç™½æ¨¡å¼
 +scale_colour_grey()
 +scale_color_manual(values=c("white","black","grey"))
 
-#### ÆäËûÃüÁî
+#### å…¶ä»–å‘½ä»¤
 ggplot(dis_atp3, aes(x=distance,..ncount..)) + 
     geom_histogram(aes(fill=type),binwidth=0.0005,alpha=.6,position="identity") +
     stat_density(geom = 'line', position = 'identity',aes(colour = type)) +
@@ -236,7 +233,7 @@ legend("topleft",legend=rownames(table2))
 
 #####
 setwd("E:/Xiong/data/20170706/final/distance")
-dis_cyc <- read.csv(file ='4ampy_cyc.csv', header = FALSE, sep = ",") ##ÉèÖÃÎÄ¼þÃû
+dis_cyc <- read.csv(file ='4ampy_cyc.csv', header = FALSE, sep = ",") ##è®¾ç½®æ–‡ä»¶å
 dis_ilex <- read.csv(file ='4ampy_ilex.csv', header = FALSE, sep = ",")
 dis_cer <- read.csv(file ='4ampy_cer.csv', header = FALSE, sep = ",")
 dis_que <- read.csv(file ='4ampy_que.csv', header = FALSE, sep = ",")
@@ -269,7 +266,7 @@ write.csv(table, file = "species_list.csv")
 
 
 ####################
-ggplot¸÷×é¾àÀëÏäÏßÍ¼
+ggplotå„ç»„è·ç¦»ç®±çº¿å›¾
 dis_que <- read.csv(file ='4ampy_que2.csv', header = FALSE, sep = ",")
 dis_que<-na.omit(dis_que)
 write.csv(dis_que,"4ampy_que3.csv")
@@ -295,17 +292,3 @@ ggplot(distance, aes(groups, distance)) +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"))+
   labs(x="sections", y="p-distance")
 ggsave("p_dis_sections.pdf")
-  
-  mtcars
-  checknumber <- read.csv("CHECKNUMBER.csv",sep=",")
-  colnames(checknumber)<-c("individual","locality")
-  numtable<-table(checknumber[,2])
-  sum(numtable)
-  numtable
-  
-  ###############
-  install.packages('dplyr') ##°²×°²»ÉÏ
-  library(dplyr) # ggplot2 °ü³£³£ºÍdplyr°üÒ»ÆðÊ¹ÓÃ
-  data1 <- data.frame(table(dis_atp3))
-  data2 <- data1 %>% mutate(f=Freq/sum(Freq))
-  
